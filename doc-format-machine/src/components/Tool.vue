@@ -238,10 +238,12 @@
 										<br>
 										Name|Type|Description<br>
 										----|----|-----------<br>
-										<span v-for="(arg, id) in args" v-bind:key="id">
-											{{ arg.argName }} | {{ arg.argType }} | {{ arg.argDescription }}<br>
+										<span v-if="args[0].name">
+											{{ console.log('here') }}
+											{{ buildArgs() }}
 										</span>
 										<span v-if="argumentName">{{ argumentName }} | {{ argumentType }} | {{ argumentDescription }}<br></span>
+										<span v-else>(none) | | <br></span>
 										</p>
 									</div>
 								</div>
@@ -293,15 +295,12 @@ export default {
 		}
 	},
 	computed: {
-		buildArgs(i) {
-			if (this.argumentName === '') {
-				this.args[i].argName + ' | ' + this.args[i].argType + ' | ' + this.args[i].argDescription
-			}
+		buildArgs() {
+			return this.args[0].argName + ' | ' + this.args[0].argType + ' | ' + this.args[0].argDescription
 		}
 	},
 	methods: {
 		addArgument() {
-			console.log(`here`)
 			this.args[this.args.length - 1] = {
 				argName: this.argumentName,
 				argType: this.argumentType,
