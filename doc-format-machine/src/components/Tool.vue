@@ -258,7 +258,7 @@
 							</div>
 							<div class="mt-4">
 								<p>
-									# {{ name }}<br>
+									# {{ insertBreak(name) }}<br>
 									<span v-for="(additional, id) in additionalContents.afterName" v-bind:key="id">
 										<br>
 										{{ additional.content }}<br>
@@ -348,59 +348,59 @@
 							<div class="headline text-xs-center">Example Docs</div>
 							<span class="text-xs-left">
 								<p>
-									## getlocalsolps
-
-									**getlocalsolps**
-
+									## getlocalsolps<br>
+									<br>
+									**getlocalsolps**<br>
+									<br>
 									The `getlocalsolps` method returns the average local solutions per second since this node was started.
-
-									::: tip
-									This is the same information shown on the metrics screen (if enabled).
-									:::
-
-									### Arguments:
-
-									Structure|Type|Description
-									---------|----|-----------
-									(none)                                       |(none)                       |
-
-									### Response:
-									Structure|Type|Description
-									---------|----|-----------
-									"data"                                       |(numeric)                    |solutions per second average
-
-									#### :pushpin: Examples:
-
-									Command:
-
-									```bash
-									./komodo-cli getlocalsolps
-									```
-
-									Response:
-
-									```bash
-									0.4141607577247555
-									```
-
-									You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
-
-									Command:
-
-									```bash
-									curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getlocalsolps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-									```
-
-									Response:
-
-									```json
-									{
-										"result": 0.4141607577247555,
-										"error": null,
-										"id": "curltest"
-									}
-									```
-
+									<br>
+									::: tip<br>
+									This is the same information shown on the metrics screen (if enabled).<br>
+									:::<br>
+									<br>
+									### Arguments:<br>
+									<br>
+									Structure|Type|Description<br>
+									---------|----|-----------<br>
+									(none)                                       |                             |<br>
+									<br>
+									### Response:<br>
+									Structure|Type|Description<br>
+									---------|----|-----------<br>
+									"data"                                       |(numeric)                    |solutions per second average<br>
+									<br>
+									#### :pushpin: Examples:<br>
+									<br>
+									Command:<br>
+									<br>
+									```bash<br>
+									./komodo-cli getlocalsolps<br>
+									```<br>
+									<br>
+									Response:<br>
+									<br>
+									```bash<br>
+									0.4141607577247555<br>
+									```<br>
+									<br>
+									You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.<br>
+									<br>
+									Command:<br>
+									<br>
+									```bash<br>
+									curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getlocalsolps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/<br>
+									```<br>
+									<br>
+									Response:<br>
+									<br>
+									```json<br>
+									{<br>
+										"result": 0.4141607577247555,<br>
+										"error": null,<br>
+										"id": "curltest"<br>
+									}<br>
+									```<br>
+									<br>
 								</p>
 							</span>
 						</div>
@@ -467,14 +467,21 @@ export default {
 		}
 	},
 	methods: {
+		insertBreak(textData) {
+			textData = textData.replace('\n', '`<br>`')
+			return textData
+		},
 		clearArgumentField() {
 			this.argumentName = ''
 			this.argumentType = ''
 			this.argumentDescription = ''
 		},
 		addArgument() {
+
+			let argumentNameInsert = this.insertBreak(this.argumentName)
+
 			this.args.push({
-				argName: '<pre>' + this.argumentName + '</pre>',
+				argName: argumentNameInsert,
 				argType: this.argumentType,
 				argDescription: this.argumentDescription
 			})

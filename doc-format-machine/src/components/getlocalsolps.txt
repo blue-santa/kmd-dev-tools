@@ -1,0 +1,52 @@
+## getlocalsolps
+
+**getlocalsolps**
+
+The `getlocalsolps` method returns the average local solutions per second since this node was started.
+
+::: tip
+This is the same information shown on the metrics screen (if enabled).
+:::
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+(none)                                       |(none)                       |
+
+### Response:
+Structure|Type|Description
+---------|----|-----------
+"data"                                       |(numeric)                    |solutions per second average
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli getlocalsolps
+```
+
+Response:
+
+```bash
+0.4141607577247555
+```
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getlocalsolps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+Response:
+
+```json
+{
+  "result": 0.4141607577247555,
+  "error": null,
+  "id": "curltest"
+}
+```
