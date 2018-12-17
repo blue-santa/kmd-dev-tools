@@ -36,26 +36,29 @@
 							<div class="headline text-xs-center" style="min-width: 100%">Primary RPC Details</div>
 
 							<v-form>
-								<v-text-field
+								<v-textarea
 								class="mt-2 mb-2"
 								name="rpc-title"
 								label="RPC Name"
 								v-model="name"
 								hint="For example: `sendtoaddress`"
+								persistent-hint="true"
 								/>
-								<v-text-field
+								<v-textarea
 								class="mt-2 mb-2"
 								name="rpc-descriptive-example"
 								label="Descriptive Example"
 								v-model="descriptiveExample"
 								hint="For example: `sendtoaddress destination_address amount"
+								persistent-hint="true"
 								/>
-								<v-text-field
+								<v-textarea
 								class="mt-2 mb-2"
 								name="rpc-description"
 								label="Detailed RPC Description"
 								v-model="description"
-								hint="For example: `The `sendtoaddress` method sends the `amount` of funds to `destination address`."
+								hint="For example: The `sendtoaddress` method sends the `amount` of funds to `destination_address`."
+								persistent-hint="true"
 								/>
 							</v-form>
 						</div>
@@ -67,7 +70,7 @@
 							<div class="headline text-xs-center" style="min-width: 100%">Arguments</div>
 
 							<div>
-								<v-text-field
+								<v-textarea
 								class="mt-2 mb-2"
 								name="argument-name"
 								label="Argument Name"
@@ -75,7 +78,7 @@
 								hint="For example: amount"
 								persistent-hint="true"
 								/>
-								<v-text-field
+								<v-textarea
 								class="mt-2 mb-2"
 								name="argument-type"
 								label="Argument Type"
@@ -83,14 +86,14 @@
 								hint="We recommend looking at other type values in the documentation. Avoid creating new types, and instead reuse existing type values, such as ` an array of strings`. Example for amount: number"
 								persistent-hint="true"
 								/>
-								<v-text-field
+								<v-textarea
 								class="mt-2 mb-2"
 								name="argument-description"
 								label="Argument Description"
 								v-model="argumentDescription"
 								hint="Description of the argument. Don't use a capital letter for the first sentence. Try to use `;` semi-colons instead of periods. Use the articles `the` and `a`, to keep the phrasing natural. Only end in a `.` period if the description necessitates becoming so long, it becomes awkward. For example: the amount of funds to send"
 								persistent-hint="true"
-                                                                />
+								/>
 							</div>
 							<v-card-actions>
 								<v-btn class="mt-2" v-on:click="addArgument">Submit Argument</v-btn>
@@ -104,33 +107,33 @@
 							<div class="headline text-xs-center" style="min-width: 100%">Response</div>
 
 							<div>
-								<v-text-field
+								<v-textarea
 								class="mt-2 mb-2"
 								name="response-name"
 								label="Response Name"
-								value=""
+								v-model="responseName"
 								hint="The name of this response value. To prevent confusion for a fast reader, try to avoid using extremely abbreviated terminology, such as `txid`. Instead, use the full term: transaction_id"
 								persistent-hint="true"
 								/>
-								<v-text-field
+								<v-textarea
 								class="mt-2 mb-2"
 								name="response-type"
 								label="Response Type"
-								value=""
+								v-model="responseType"
 								hint="We recommend looking at other type values in the documentation. Avoid creating new types, and instead reuse existing type values, such as ` an array of strings`. Example for transaction_id: string"
 								persistent-hint="true"
 								/>
-								<v-text-field
+								<v-textarea
 								class="mt-2 mb-2"
 								name="response-description"
 								label="Response Description"
-								value=""
+								v-model="responseDescription"
 								hint="Description of the response value. Don't use a capital letter for the first sentence. Try to use `;` semi-colons instead of periods. Use the articles `the` and `a`, to keep the phrasing natural. Only end in a `.` period if the description necessitates becoming so long, it becomes awkward. For example: the transaction id for this transaction"
 								persistent-hint="true"
 								/>
 							</div>
 							<v-card-actions>
-								<v-btn class="mt-2">Submit Response</v-btn>
+								<v-btn class="mt-2" v-on:click="addResponse">Submit Response</v-btn>
 							</v-card-actions>
 						</div>
 					</v-card-title>
@@ -141,30 +144,49 @@
 							<div class="headline text-xs-center" style="min-width: 100%">Example</div>
 
 							<div>
-								<v-text-field
+								<v-textarea
 								class="mt-2 mb-2"
-								name="example-description"
-								label="Example Description"
-								value=""
-								hint="A description of the example. It should be short."
+								name="example-input-description"
+								label="Example Input Description"
+								v-model="exampleInputDescription"
+								hint="A description of the example's input. It should be short."
+								persistent-hint="true"
 								/>
-								<v-text-field
+								<v-textarea
 								class="mt-2 mb-2"
 								name="terminal-input"
 								label="Full Terminal Input"
-								value=""
+								v-model="exampleInput"
 								hint="The ENTIRE input for the example. Generally, DO NOT abbreviate anything; the only exceptions are private keys and other strings/parameters that could be accidentally entered by the developer, and which would then result in a loss of funds."
+								persistent-hint="true"
 								/>
-								<v-text-field
+								<v-textarea
+								class="mt-2 mb-2"
+								name="example-output-description"
+								label="Example Output Description"
+								v-model="exampleOutputDescription"
+								hint="A description of the example's output. It should be short."
+								persistent-hint="true"
+								/>
+								<v-textarea
 								class="mt-2 mb-2"
 								name="terminal-output"
 								label="Full Terminal Output"
-								value=""
+								v-model="exampleOutput"
 								hint="The ENTIRE output for the example. As before, DO NOT abbreviate any information, except that which pertains to the security of private funds."
+								persistent-hint="true"
+								/>
+								<v-textarea
+								class="mt-2 mb-2"
+								name="example-language"
+								label="Example Language"
+								v-model="exampleLanguage"
+								hint="The language for the example. For example: bash, python, javascript, etc."
+								persistent-hint="true"
 								/>
 							</div>
 							<v-card-actions>
-								<v-btn class="mt-2">Submit Example</v-btn>
+								<v-btn class="mt-2" v-on:click="addExample">Submit Example</v-btn>
 							</v-card-actions>
 						</div>
 					</v-card-title>
@@ -175,17 +197,18 @@
 							<div class="headline text-xs-center" style="min-width: 100%">Additional Content</div>
 
 							<div>
-								<v-text-field
+								<v-textarea
 								class="mt-2 mb-2"
 								name="additional-content"
 								label="Additional Content"
-								value=""
+								v-model="additionalContent"
 								hint="Use the appropriate markdown format for any content provided here. See the raw documentation for examples."
+								persistent-hint="true"
 								/>
 								<span class="subheading">
 									Where should this be placed?
 								</span>
-								<v-radio-group v-model="groupGoesHere">
+								<v-radio-group v-model="groupPlacement">
 									<v-radio
 									:key="0"
 									:label="`After the RPC Name`"
@@ -219,7 +242,7 @@
 								</v-radio-group>
 							</div>
 							<v-card-actions>
-								<v-btn class="mt-2">Submit Example</v-btn>
+								<v-btn class="mt-2" v-on:click="addAdditionalContents">Submit Additional Content</v-btn>
 							</v-card-actions>
 						</div>
 					</v-card-title>
@@ -229,27 +252,157 @@
 				<v-card color="red darken-4" class="white--text mt-2">
 					<v-card-title primary-title>
 						<div>
-							<div class="headline">Result Formatted for VuePress:</div>
+							<div class="headline">Result Formatted for VuePress</div>
+							<div class="subheading">
+								Use the input boxes on the left to start the documentation. Once you have it close enough, select everything below and copy/paste it into your editor or IDE for further changes.
+							</div>
 							<div class="mt-4">
-								<p># {{ name }}<br>
+								<p>
+									# {{ name }}<br>
+									<span v-for="(additional, id) in additionalContents.afterName" v-bind:key="id">
+										<br>
+										{{ additional.content }}<br>
+									</span>
 									<br>
 									**{{ descriptiveExample }}**<br>
+									<span v-for="(additional, id) in additionalContents.afterDescriptiveExample" v-bind:key="id">
+										<br>
+										{{ additional.content }}<br>
+									</span>
 									<br>
-									The {{ name }} method {{ description }}<br>
+									{{ description }}<br>
+									<span v-for="(additional, id) in additionalContents.afterDescription" v-bind:key="id">
+										<br>
+										{{ additional.content }}<br>
+									</span>
 									<br>
 									### Arguments:<br>
-                                                                        <br>
-                                                                        Name|Type|Description<br>
+									Name|Type|Description<br>
 									----|----|-----------<br>
-                                                                        <span v-if="args.length < 1 && argumentName === ''">
-                                                                          (none) | | <br> 
-                                                                        </span>
-                                                                        <span v-for="(arg, id) in args" v-bind:key="id">
-                                                                          {{ arg.argName  }} | {{ arg.argType }} | {{ arg.argDescription }}<br>
-                                                                        </span>
-									<span v-if="argumentName">{{ argumentName }} | {{ argumentType }} | {{ argumentDescription }}<br></span>
+									<span v-if="args.length < 1 && argumentName === ''">
+										(none) | | <br>
+									</span>
+									<span v-for="(arg, id) in args" v-bind:key="id">
+										{{ arg.argName }} | {{ arg.argType }} | {{ arg.argDescription }}<br>
+									</span>
+									<span v-if="argumentName">
+										{{ argumentName }} | {{ argumentType }} | {{ argumentDescription }}<br>
+									</span>
+									<br>
+									<span v-for="(additional, id) in additionalContents.afterArguments" v-bind:key="id">
+										{{ additional.content }}<br>
+										<br>
+									</span>
+									### Response:<br>
+									Name|Type|Description<br>
+									----|----|-----------<br>
+									<span v-if="resps.length < 1 && responseName === ''">
+										(none) | | <br>
+									</span>
+									<span v-for="(resp, id) in resps" v-bind:key="id">
+										{{ resp.respName  }} | {{ resp.respType }} | {{ resp.respDescription }}<br>
+									</span>
+									<span v-if="responseName">{{ responseName }} | {{ responseType }} | {{ responseDescription }}<br></span>
+									<br>
+									<span v-for="(additional, id) in additionalContents.afterResponse" v-bind:key="id">
+										<br>
+										{{ additional.content }}<br>
+										<br>
+									</span>
+									#### :pushpin: Examples:<br>
+									<span v-if="examples.length < 1 && exampleInput === ''">
+										[Example Here - Include Full Input and Output]<br>
+										[Click Submit when Finished]
+										<br>
+									</span>
+									<span v-for="(example, id) in examples" v-bind:key="id">
+										<br>
+										{{ example.exampInputDesc }}<br>
+										<br>
+										:::{{ example.exampLang }}<br>
+										{{ example.exampInput }}<br>
+										:::<br>
+										<br>
+										{{ example.exampOutputDesc }}<br>
+										<br>
+										:::{{ example.exampLang }}<br>
+										{{ example.exampOutput }}<br>
+										:::<br>
+									</span>
+									<span v-for="(additional, id) in additionalContents.afterExamples" v-bind:key="id">
+										<br>
+										{{ additional.content }}<br>
+									</span>
 								</p>
 							</div>
+						</div>
+					</v-card-title>
+				</v-card>
+			</v-flex>
+		</v-layout>
+		<v-layout row wrap>
+			<v-flex xs12>
+				<v-card>
+					<v-card-title primary-title>
+						<div>
+							<div class="headline text-xs-center">Example Docs</div>
+							<span class="text-xs-left">
+								<p>
+									## getlocalsolps
+
+									**getlocalsolps**
+
+									The `getlocalsolps` method returns the average local solutions per second since this node was started.
+
+									::: tip
+									This is the same information shown on the metrics screen (if enabled).
+									:::
+
+									### Arguments:
+
+									Structure|Type|Description
+									---------|----|-----------
+									(none)                                       |(none)                       |
+
+									### Response:
+									Structure|Type|Description
+									---------|----|-----------
+									"data"                                       |(numeric)                    |solutions per second average
+
+									#### :pushpin: Examples:
+
+									Command:
+
+									```bash
+									./komodo-cli getlocalsolps
+									```
+
+									Response:
+
+									```bash
+									0.4141607577247555
+									```
+
+									You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
+
+									Command:
+
+									```bash
+									curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getlocalsolps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+									```
+
+									Response:
+
+									```json
+									{
+										"result": 0.4141607577247555,
+										"error": null,
+										"id": "curltest"
+									}
+									```
+
+								</p>
+							</span>
 						</div>
 					</v-card-title>
 				</v-card>
@@ -266,52 +419,156 @@ export default {
 		return {
 			name: 'RPC Name',
 			descriptiveExample: 'descriptive example',
-			description: '...',
+			description: 'The [RPCCall] method...',
 			argumentName: '',
 			argumentType: '',
 			argumentDescription: '',
+			responseName: '',
+			responseType: '',
+			responseDescription: '',
+			exampleInputDescription: 'Command:',
+			exampleInput: '',
+			exampleOutputDescription: 'Response:',
+			exampleOutput: '',
+			exampleLanguage: 'bash',
+			groupPlacement: 5,
 			args: [
 			],
-			resps: {
-				play: {
-					name: '',
-					type: '',
-					description: ''
-				}
-			},
-			examples: {
-				play: {
-					description: '',
-					content: ''
-				}
-			},
-			additional: {
-				play: {
-					content: '',
-					value: 6
-				}
+			resps: [
+			],
+			examples: [
+			],
+			additionalContent: '',
+			additionalContents: {
+				afterName: [
+
+				],
+				afterDescriptiveExample: [
+
+				],
+				afterDescription: [
+
+				],
+				afterArguments: [
+
+				],
+				afterResponses: [
+
+				],
+				afterExamples: [
+
+				]
 			}
 		}
 	},
 	computed: {
-		buildArgs() {
-			return this.args[0].argName + ' | ' + this.args[0].argType + ' | ' + this.args[0].argDescription
+		calculateExampleOutput() {
+			return this.exampleOutput
 		}
 	},
 	methods: {
-                clearArgumentField() {
+		clearArgumentField() {
 			this.argumentName = ''
 			this.argumentType = ''
 			this.argumentDescription = ''
-                },
+		},
 		addArgument() {
-        		this.args.push({
-			  argName: this.argumentName,
-                          argType: this.argumentType,
-			  argDescription: this.argumentDescription
+			this.args.push({
+				argName: '<pre>' + this.argumentName + '</pre>',
+				argType: this.argumentType,
+				argDescription: this.argumentDescription
 			})
-                        
-                        this.clearArgumentField()
+			this.clearArgumentField()
+		},
+		clearResponseField() {
+			this.responseName = ''
+			this.responseType = ''
+			this.responseDescription = ''
+		},
+		addResponse() {
+			this.resps.push({
+				respName: this.responseName,
+				respType: this.responseType,
+				respDescription: this.responseDescription
+			})
+			this.clearResponseField()
+		},
+		clearExampleField() {
+			this.exampleInputDescription = 'Command:'
+			this.exampleInput = ''
+			this.exampleOutputDescription = 'Response:'
+			this.exampleOutput = ''
+			this.exampleLanguage = 'bash'
+		},
+		addExample() {
+
+			this.examples.push({
+				exampInputDesc: this.exampleInputDescription,
+				exampInput: this.exampleInput,
+				exampOutputDesc: this.exampleOutputDescription,
+				exampLang: this.exampleLanguage,
+				exampOutput: this.exampleOutput
+			})
+
+			this.clearExampleField()
+		},
+		clearAdditional() {
+			this.additionalContent = ''
+			this.groupPlacement = 5
+		},
+		addAdditionalContents() {
+
+			switch (this.groupPlacement) {
+
+				case 0:
+				this.additionalContents.afterName.push({
+					content: this.additionalContent
+				})
+
+				this.clearAdditional()
+				break
+
+				case 1:
+				this.additionalContents.afterDescriptiveExample.push({
+					content: this.additionalContent
+				})
+
+				this.clearAdditional()
+				break
+
+				case 2:
+				this.additionalContents.afterDescription.push({
+					content: this.additionalContent
+				})
+
+				this.clearAdditional()
+				break
+
+				case 3:
+				this.additionalContents.afterArguments.push({
+					content: this.additionalContent
+				})
+
+				this.clearAdditional()
+				break
+
+				case 4:
+				this.additionalContents.afterResponses.push({
+					content: this.additionalContent
+				})
+
+				this.clearAdditional()
+				break
+
+				case 5:
+				this.additionalContents.afterExamples.push({
+					content: this.additionalContent
+				})
+				this.clearAdditional()
+
+				break
+
+			}
 		}
 	}
 }
