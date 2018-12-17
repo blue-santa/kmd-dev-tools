@@ -352,7 +352,7 @@
 									<br>
 									**getlocalsolps**<br>
 									<br>
-									The `getlocalsolps` method returns the average local solutions per second since this node was started.
+									The `getlocalsolps` method returns the average local solutions per second since this node was started.<br>
 									<br>
 									::: tip<br>
 									This is the same information shown on the metrics screen (if enabled).<br>
@@ -468,7 +468,7 @@ export default {
 	},
 	methods: {
 		insertBreak(textData) {
-			textData = textData.replace('\n', '`<br>`')
+			textData = textData.replace('\n', '``\n')
 			return textData
 		},
 		clearArgumentField() {
@@ -479,11 +479,13 @@ export default {
 		addArgument() {
 
 			let argumentNameInsert = this.insertBreak(this.argumentName)
+			let argumentTypeInsert = this.insertBreak(this.argumentType)
+			let argumentDescription = this.insertBreak(this.argumentDescription)
 
 			this.args.push({
 				argName: argumentNameInsert,
-				argType: this.argumentType,
-				argDescription: this.argumentDescription
+				argType: argumentTypeInsert,
+				argDescription: argumentDescription
 			})
 			this.clearArgumentField()
 		},
@@ -493,10 +495,14 @@ export default {
 			this.responseDescription = ''
 		},
 		addResponse() {
+			let responseNameInsert = this.insertBreak(this.responseName)
+			let responseTypeInsert = this.insertBreak(this.responseType)
+			let responseDescription = this.insertBreak(this.responseDescription)
+
 			this.resps.push({
-				respName: this.responseName,
-				respType: this.responseType,
-				respDescription: this.responseDescription
+				respName: responseNameInsert,
+				respType: responseTypeInsert,
+				respDescription: responseDescription
 			})
 			this.clearResponseField()
 		},
@@ -509,12 +515,18 @@ export default {
 		},
 		addExample() {
 
+			let exampleInputDescriptionInsert = this.insertBreak(this.exampleInputDescription)
+			let exampleInputInsert = this.insertBreak(this.exampleInput)
+			let exampleOutputDescriptionInsert = this.insertBreak(this.exampleOutputDescription)
+			let exampleLanguageInsert = this.insertBreak(this.exampleLanguage)
+			let exampleOutputInsert = this.insertBreak(this.exampleOutput)
+
 			this.examples.push({
-				exampInputDesc: this.exampleInputDescription,
-				exampInput: this.exampleInput,
-				exampOutputDesc: this.exampleOutputDescription,
-				exampLang: this.exampleLanguage,
-				exampOutput: this.exampleOutput
+				exampInputDesc: exampleInputDescriptionInsert,
+				exampInput: exampleInputInsert,
+				exampOutputDesc: exampleOutputDescriptionInsert,
+				exampLang: exampleLanguageInsert,
+				exampOutput: exampleOutputInsert
 			})
 
 			this.clearExampleField()
@@ -525,51 +537,59 @@ export default {
 		},
 		addAdditionalContents() {
 
+			let additionalContentInsert = this.insertBreak(this.additionalContent)
+
 			switch (this.groupPlacement) {
 
 				case 0:
+
 				this.additionalContents.afterName.push({
-					content: this.additionalContent
+					content: additionalContentInsert
 				})
 
 				this.clearAdditional()
 				break
 
 				case 1:
+
 				this.additionalContents.afterDescriptiveExample.push({
-					content: this.additionalContent
+					content: additionalContentInsert
 				})
 
 				this.clearAdditional()
 				break
 
 				case 2:
+
 				this.additionalContents.afterDescription.push({
-					content: this.additionalContent
+					content: additionalContentInsert
 				})
 
 				this.clearAdditional()
 				break
 
 				case 3:
+
 				this.additionalContents.afterArguments.push({
-					content: this.additionalContent
+					content: additionalContentInsert
 				})
 
 				this.clearAdditional()
 				break
 
 				case 4:
+
 				this.additionalContents.afterResponses.push({
-					content: this.additionalContent
+					content: additionalContentInsert
 				})
 
 				this.clearAdditional()
 				break
 
 				case 5:
+
 				this.additionalContents.afterExamples.push({
-					content: this.additionalContent
+					content: additionalContentInsert
 				})
 				this.clearAdditional()
 
